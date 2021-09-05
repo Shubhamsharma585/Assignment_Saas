@@ -1,93 +1,54 @@
+// Fetching Elements
 const playBtn = document.getElementsByClassName("play")[0];
 const playIcon = document.getElementById("play_pause");
 const songs = document.getElementById("song");
+const canvas = document.getElementById("myCanvas");
+
+
+
+const ctx = canvas.getContext("2d");
+
+
+//setting initial state of player pause
 let isPlaying = false;
 
+var width = 4; //Widh of each vertical bar is 4px
+var X = 0;  //Initial position of canvas
+var max = 80;  //maximum height of waveform
+var min = -100; //minimum height of waveform
+var h = 0  //Height of each vertical bar initially.
 
-//var graphValues = [80,20,30,40,50];
-var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
 
-// var canvas2 = document.getElementById("myCanvas2");
-// var ctx2 = canvas2.getContext("2d");
-
-var width = 4;
-var X = 0;
-var max = 80;
-var min = -100;
-var h = 0
-
-ctx.beginPath();
+//Drawing initial pattern
+ctx.beginPath();  
 for(var i=0; i<=233; i++)
 {
-    if(i<=25)
-    {
-       h = h+2;
-    }
-    else if(i>25 && i<=50)
-    {
-       h = h-2;
-    }
-    else if(i>50 && i<=75)
-    {
-       h = h-2;
-    }
-    else if(i>75 && i<=100)
-    {
-       h = h+2;
-    }
-    else if(i>100 && i<=125)
-    {
-       h = h+2;
-    }
-    else if(i>125 && i<=150)
-    {
-       h = h-2;
-    }
-    else if(i>150 && i<=175)
-    {
-       h = h-2;
-    }
-    else if(i>175 && i<=200)
-    {
-       h = h+2;
-    }
-    else if(i>200 && i<=225)
-    {
-       h = h+2;
-    }
-    else if(i>225 && i<=250)
-    {
-       h = h-2;
-    }
-
-    //console.log("h",h, "X", X)
-
+    //Manually created function used to create pattern of waveform
+    var h = pattern(i,h)
     ctx.fillStyle = "gray";
+    //Inital color is made gray
     ctx.fillRect(X, (h>0?180:200),width, (h<20)?  ((h<20 && h>0)?20:(h<-20?h:-20))  :h);
-    X = X + width+2; //Every time bar will move left by 6px;
+    //contional operator is used to maintain a certain height of verticle bars.
+    X = X + width+2; //Every time bar will move left by 6px.
     //maximum width is 1400 so bars will cover width of (w<=1400)
 }
  
 
 
-console.log(songs.duration)
-let Position = 0;
 
 
-
-
-
-
+let Position = 0; 
+//Position represent current time of audio on scale of 0 to 100
 let duration = songs.duration;
 var last_pos = -1;
+//Listening to event every time when music is playing.
+//To Overwrite the canvas in multiple color.
 songs.addEventListener('timeupdate', (event) => {
     //console.log(event.srcElement.currentTime)
     current_time = event.srcElement.currentTime;
-
     Position = Math.floor((current_time*100)/duration);
 
-
+   //Changing pause to play when music is finished. 
     if(Position == 100)
     {
         playIcon.classList.replace("fa-pause","fa-play");   
@@ -104,57 +65,18 @@ songs.addEventListener('timeupdate', (event) => {
 
 
 
+  //Painting canvas in red color till current position of music
   function paint(Position)
   {
-
+    //Observing status of current time on console.
     console.log("Paint",Position)
     var X1 = 0;
     var h1 = 0;
     for(var l=0; l<233; l++)
     {
     ctx.beginPath();
-
-
-    if(l<=25)
-    {
-       h1 = h1+2;
-    }
-    else if(l>25 && l<=50)
-    {
-       h1 = h1-2;
-    }
-    else if(l>50 && l<=75)
-    {
-       h1 = h1-2;
-    }
-    else if(l>75 && l<=100)
-    {
-       h1 = h1+2;
-    }
-    else if(l>100 && l<=125)
-    {
-       h1 = h1+2;
-    }
-    else if(l>125 && l<=150)
-    {
-       h1 = h1-2;
-    }
-    else if(l>150 && l<=175)
-    {
-       h1 = h1-2;
-    }
-    else if(l>175 && l<=200)
-    {
-      h1 = h1+2;
-    }
-    else if(l>200 && l<=225)
-    {
-      h1 = h1+2;
-    }
-    else if(l>225 && l<=250)
-    {
-      h1 = h1-2;
-    }
+    //Manually created function used to create pattern of waveform
+    var h1 = pattern(l,h1)
 
     if(l<(Position*2.33))
     {
@@ -165,13 +87,12 @@ songs.addEventListener('timeupdate', (event) => {
         ctx.fillStyle="gray";
     }
     ctx.fillRect(X1, (h1>0?180:200),width, (h1<20)?  ((h1<20 && h1>0)?20:(h1<-20?h1:-20))  :h1);
+     //contional operator is used to maintain a certain height of verticle bars.
     ctx.fill();
-    
+   //Moving forward horizontally with 6px distance.
     X1 = X1 + width+2; 
     }
   }
-
-
 
 
 
@@ -217,6 +138,52 @@ canvas.addEventListener("mousedown", (event) => {
 })
 
 
+
+//Function to generate a waveform in certain fashion
+function pattern(i,h)
+{
+   if(i<=25)
+   {
+      h = h+2;
+   }
+   else if(i>25 && i<=50)
+   {
+      h = h-2;
+   }
+   else if(i>50 && i<=75)
+   {
+      h = h-2;
+   }
+   else if(i>75 && i<=100)
+   {
+      h = h+2;
+   }
+   else if(i>100 && i<=125)
+   {
+      h = h+2;
+   }
+   else if(i>125 && i<=150)
+   {
+      h = h-2;
+   }
+   else if(i>150 && i<=175)
+   {
+      h = h-2;
+   }
+   else if(i>175 && i<=200)
+   {
+      h = h+2;
+   }
+   else if(i>200 && i<=225)
+   {
+      h = h+2;
+   }
+   else if(i>225 && i<=250)
+   {
+      h = h-2;
+   }
+   return h;
+}
 
 
 

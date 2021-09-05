@@ -64,8 +64,7 @@ for(var i=0; i<=233; i++)
     //console.log("h",h, "X", X)
 
     ctx.fillStyle = "gray";
-    //console.log("X",X) 
-    ctx.fillRect(X,210,width, h);
+    ctx.fillRect(X, (h>0?180:200),width, (h<20)?  ((h<20 && h>0)?20:(h<-20?h:-20))  :h);
     X = X + width+2; //Every time bar will move left by 6px;
     //maximum width is 1400 so bars will cover width of (w<=1400)
 }
@@ -165,7 +164,7 @@ songs.addEventListener('timeupdate', (event) => {
     {
         ctx.fillStyle="gray";
     }
-    ctx.fillRect(X1, 210, width, h1);
+    ctx.fillRect(X1, (h1>0?180:200),width, (h1<20)?  ((h1<20 && h1>0)?20:(h1<-20?h1:-20))  :h1);
     ctx.fill();
     
     X1 = X1 + width+2; 
@@ -264,8 +263,6 @@ ctx.rect(1300, 20, 3, 150);
 ctx.rect(1090, 10, 220, 20);
 ctx.fillStyle="green";
 ctx.fill();
-
-
 
 
 //Static board circle Flag_1

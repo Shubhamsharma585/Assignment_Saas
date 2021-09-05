@@ -11,6 +11,8 @@
 ## Motto
 To learn about html canvas tag and use it for making music player within two days. I learned a lot within these two days and would like to know more about canvas tag as I have understood that its very poweerfull.  
 
+## Demo 
+Link- https://drive.google.com/file/d/1I4eQy0BxKa9N52d3zdYSUjdBPsqmNHWq/view?usp=sharing
 
 ## Tech Stacks
 ** JavaScript **

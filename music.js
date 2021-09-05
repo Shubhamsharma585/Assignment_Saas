@@ -1,7 +1,6 @@
 const playBtn = document.getElementsByClassName("play")[0];
 const playIcon = document.getElementById("play_pause");
 const songs = document.getElementById("song");
-const seekBtn = document.getElementById("seek");
 let isPlaying = false;
 
 
@@ -72,98 +71,6 @@ for(var i=0; i<=233; i++)
 }
  
 
-ctx.beginPath();
-ctx.rect(200, 70, 3, 100);
-ctx.rect(150, 70, 100, 20);
-
-
-ctx.rect(400, 40, 3, 140);
-ctx.rect(350, 30, 100, 20);
-
-ctx.fillStyle = "lightgreen";
-ctx.fill();
-
-ctx.beginPath();
-ctx.rect(1100, 20, 3, 150);
-ctx.fillStyle="lightgreen";
-ctx.fill();
-
-ctx.beginPath();
-ctx.rect(1180, 100, 3, 70);
-ctx.rect(1180, 100, 80, 20);
-ctx.fillStyle="purple";
-ctx.fill();
-
-ctx.beginPath();
-ctx.fillStyle="white";
-ctx.font = "10pt sans-serif";
-ctx.fillText("Introduction", 162, 85);
-
-
-ctx.beginPath();
-ctx.rect(1270, 60, 3, 110);
-ctx.rect(1105, 60, 175, 20);
-ctx.fillStyle="brown";
-ctx.fill();
-
-ctx.beginPath();
-ctx.rect(1300, 20, 3, 150);
-ctx.rect(1090, 10, 220, 20);
-ctx.fillStyle="green";
-ctx.fill();
-
-ctx.beginPath();
-ctx.arc(201, 178, 8, 0, 2 * Math.PI);
-ctx.fillStyle="lightgreen";
-ctx.fill();
-
-ctx.beginPath();
-ctx.arc(401, 178, 8, 0, 2 * Math.PI);
-ctx.fillStyle="lightgreen";
-ctx.fill();
-
-ctx.beginPath();
-ctx.arc(1101, 178, 8, 0, 2 * Math.PI);
-ctx.fillStyle="lightgreen";
-ctx.fill();
-
-ctx.beginPath();
-ctx.arc(1181, 178, 8, 0, 2 * Math.PI);
-ctx.fillStyle="purple";
-ctx.fill();
-
-ctx.beginPath();
-ctx.arc(1272, 178, 8, 0, 2 * Math.PI);
-ctx.fillStyle="brown";
-ctx.fill();
-
-ctx.beginPath();
-ctx.arc(1301, 178, 8, 0, 2 * Math.PI);
-ctx.fillStyle="green";
-ctx.fill();
-
-
-ctx.beginPath();
-ctx.fillStyle="white";
-ctx.font = "10pt sans-serif";
-ctx.fillText("One_six", 370, 45);
-
-ctx.beginPath();
-ctx.fillStyle="white";
-ctx.font = "10pt sans-serif";
-ctx.fillText("Rapport Building - Empathy", 1112, 75);
-
-ctx.beginPath();
-ctx.fillStyle="white";
-ctx.font = "10pt sans-serif";
-ctx.fillText("Rapport Building - Energy", 1100, 25);
-
-ctx.beginPath();
-ctx.fillStyle="white";
-ctx.font = "10pt sans-serif";
-ctx.fillText("Profile", 1200, 115);
-
-
 
 console.log(songs.duration)
 let Position = 0;
@@ -180,15 +87,20 @@ songs.addEventListener('timeupdate', (event) => {
     current_time = event.srcElement.currentTime;
 
     Position = Math.floor((current_time*100)/duration);
-    //console.log(current_time, duration, Position)
-    //console.log("Position",Position)
+
 
     if(Position == 100)
     {
         playIcon.classList.replace("fa-pause","fa-play");   
     }
     
-    paint(Position)
+    //If last position is same to new position then paint event will not fire to
+    //ensure that it do not stall the performance of app.
+    if(last_pos != Position)
+    {
+      paint(Position)
+    } 
+    last_pos = Position;
   });
 
 
@@ -284,27 +196,133 @@ const pauseMusic = () => {
     //console.log("pause")
 }
 
+//To seek music
 const seekMusic = (t) => {
     songs.currentTime = duration*(t/100);
     console.log(songs.currentTime)
 }
 
 
+//play button can evoke two functions using conditional operator
 playBtn.addEventListener("click", () => {
     isPlaying? pauseMusic(): playMusic();
 });
 
 
-seekBtn.addEventListener("click", () => {
-     seekMusic(50)
-});
-
+//To fetch the position of music string, listening to mousedown Event.
 canvas.addEventListener("mousedown", (event) => {
     var total_length = 1400;
     var local_position = event.clientX-18;
     var covered_inper =  Math.floor(((local_position*100)/total_length));
-    console.log(local_position, total_length, covered_inper)
     seekMusic(covered_inper)
 })
 
+
+
+
+
+
+//Building Static Flags
+//Static Flags_1
+ctx.beginPath();
+ctx.rect(200, 70, 3, 100);
+ctx.rect(150, 70, 100, 20);
+
+//Static Flags_2
+ctx.rect(400, 40, 3, 140);
+ctx.rect(350, 30, 100, 20);
+
+ctx.fillStyle = "lightgreen";
+ctx.fill();
+
+//Static Flags_3
+ctx.beginPath();
+ctx.rect(1100, 20, 3, 150);
+ctx.fillStyle="lightgreen";
+ctx.fill();
+
+
+//Static Flags_4
+ctx.beginPath();
+ctx.rect(1180, 100, 3, 70);
+ctx.rect(1180, 100, 80, 20);
+ctx.fillStyle="purple";
+ctx.fill();
+
+
+//Static Flags_5
+ctx.beginPath();
+ctx.rect(1270, 60, 3, 110);
+ctx.rect(1105, 60, 175, 20);
+ctx.fillStyle="brown";
+ctx.fill();
+
+
+//Static Flags_6
+ctx.beginPath();
+ctx.rect(1300, 20, 3, 150);
+ctx.rect(1090, 10, 220, 20);
+ctx.fillStyle="green";
+ctx.fill();
+
+
+
+
+//Static board circle Flag_1
+ctx.beginPath();
+ctx.arc(201, 178, 8, 0, 2 * Math.PI);
+ctx.fillStyle="lightgreen";
+ctx.fill();
+//Static board circle Flag_2
+ctx.beginPath();
+ctx.arc(401, 178, 8, 0, 2 * Math.PI);
+ctx.fillStyle="lightgreen";
+ctx.fill();
+//Static board circle Flag_3
+ctx.beginPath();
+ctx.arc(1101, 178, 8, 0, 2 * Math.PI);
+ctx.fillStyle="lightgreen";
+ctx.fill();
+//Static board circle Flag_4
+ctx.beginPath();
+ctx.arc(1181, 178, 8, 0, 2 * Math.PI);
+ctx.fillStyle="purple";
+ctx.fill();
+//Static board circle Flag_5
+ctx.beginPath();
+ctx.arc(1272, 178, 8, 0, 2 * Math.PI);
+ctx.fillStyle="brown";
+ctx.fill();
+//Static board circle Flag_6
+ctx.beginPath();
+ctx.arc(1301, 178, 8, 0, 2 * Math.PI);
+ctx.fillStyle="green";
+ctx.fill();
+
+
+//Static Heading Flags_1
+ctx.beginPath();
+ctx.fillStyle="white";
+ctx.font = "10pt sans-serif";
+ctx.fillText("Introduction", 162, 85);
+
+ctx.beginPath();
+ctx.fillStyle="white";
+ctx.font = "10pt sans-serif";
+ctx.fillText("One_six", 370, 45);
+
+ctx.beginPath();
+ctx.fillStyle="white";
+ctx.font = "10pt sans-serif";
+ctx.fillText("Rapport Building - Empathy", 1112, 75);
+
+ctx.beginPath();
+ctx.fillStyle="white";
+ctx.font = "10pt sans-serif";
+ctx.fillText("Rapport Building - Energy", 1100, 25);
+
+ctx.beginPath();
+ctx.fillStyle="white";
+ctx.font = "10pt sans-serif";
+ctx.fillText("Profile", 1200, 115);
 

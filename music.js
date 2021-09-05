@@ -3,10 +3,8 @@ const playBtn = document.getElementsByClassName("play")[0];
 const playIcon = document.getElementById("play_pause");
 const songs = document.getElementById("song");
 const canvas = document.getElementById("myCanvas");
-
-
-
 const ctx = canvas.getContext("2d");
+
 
 
 //setting initial state of player pause
@@ -289,4 +287,9 @@ ctx.beginPath();
 ctx.fillStyle="white";
 ctx.font = "10pt sans-serif";
 ctx.fillText("Profile", 1200, 115);
+
+
+
+
+
 

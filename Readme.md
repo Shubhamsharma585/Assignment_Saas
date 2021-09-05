@@ -29,16 +29,16 @@ Link- https://drive.google.com/file/d/1I4eQy0BxKa9N52d3zdYSUjdBPsqmNHWq/view?usp
 
 
 ## SnapShots
-1. Stag 1
+1. Stage 1 (0%)
 <img src="1.png" />
 
-2. Stag 2
+2. Stage 2 (40%)
 <img src="2.png" />
 
-3. Stag 3
+3. Stage 3 (80%)
 <img src="3.png" />
 
-4. Stag 4
+4. Stage 4 (100%)
 <img src="4.png" />
 
 ## Conclusion

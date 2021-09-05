@@ -204,18 +204,47 @@ songs.addEventListener('timeupdate', (event) => {
     ctx.beginPath();
 
 
+    if(l<=25)
+    {
+       h1 = h1+2;
+    }
+    else if(l>25 && l<=50)
+    {
+       h1 = h1-2;
+    }
+    else if(l>50 && l<=75)
+    {
+       h1 = h1-2;
+    }
+    else if(l>75 && l<=100)
+    {
+       h1 = h1+2;
+    }
+    else if(l>100 && l<=125)
+    {
+       h1 = h1+2;
+    }
+    else if(l>125 && l<=150)
+    {
+       h1 = h1-2;
+    }
+    else if(l>150 && l<=175)
+    {
+       h1 = h1-2;
+    }
+    else if(l>175 && l<=200)
+    {
+      h1 = h1+2;
+    }
+    else if(l>200 && l<=225)
+    {
+      h1 = h1+2;
+    }
+    else if(l>225 && l<=250)
+    {
+      h1 = h1-2;
+    }
 
-
-
-
-
-
-
-
-
-
-
-    
     if(l<(Position*2.33))
     {
         ctx.fillStyle="red";
@@ -224,7 +253,7 @@ songs.addEventListener('timeupdate', (event) => {
     {
         ctx.fillStyle="gray";
     }
-    ctx.fillRect(X1, 210, width, 70);
+    ctx.fillRect(X1, 210, width, h1);
     ctx.fill();
     
     X1 = X1 + width+2; 

@@ -1,6 +1,7 @@
 const playBtn = document.getElementsByClassName("play")[0];
 const playIcon = document.getElementById("play_pause");
 const songs = document.getElementById("song");
+const seekBtn = document.getElementById("seek");
 
 
 
@@ -67,31 +68,32 @@ ctx.fill();
 
 
 
-
-
-
-console.log(songs)
-
+console.log(songs.duration)
 
 
 
 
+
+
+
+
+
+let duration = songs.duration;
 
 songs.addEventListener('timeupdate', (event) => {
-    console.log(Math.floor(event.timeStamp/1000));
+
+    console.log(event.srcElement.currentTime)
+
   });
 
-  songs.addEventListener('loadmetadata', (event) => {
-    console.log(event);
-  });
-
-
+ 
 
 
 
 
 
 let isPlaying = false;
+
 
 //To play music
 const playMusic = () => {
@@ -109,7 +111,19 @@ const pauseMusic = () => {
     //console.log("pause")
 }
 
+const seekMusic = (t) => {
+    songs.currentTime = duration*(t/100);
+    console.log(songs.currentTime)
+}
+
 
 playBtn.addEventListener("click", () => {
     isPlaying? pauseMusic(): playMusic();
 });
+
+
+seekBtn.addEventListener("click", () => {
+     seekMusic(68)
+});
+
+

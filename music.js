@@ -9,27 +9,68 @@ let isPlaying = false;
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
-var canvas2 = document.getElementById("myCanvas2");
-var ctx2 = canvas2.getContext("2d");
+// var canvas2 = document.getElementById("myCanvas2");
+// var ctx2 = canvas2.getContext("2d");
 
 var width = 4;
 var X = 0;
 var max = 80;
 var min = -100;
-
+var h = 0
 
 ctx.beginPath();
-for(var i=0; i<=250; i++)
+for(var i=0; i<=233; i++)
 {
-    var h = Math.floor(Math.random()* (max-min) + min);
+    if(i<=25)
+    {
+       h = h+2;
+    }
+    else if(i>25 && i<=50)
+    {
+       h = h-2;
+    }
+    else if(i>50 && i<=75)
+    {
+       h = h-2;
+    }
+    else if(i>75 && i<=100)
+    {
+       h = h+2;
+    }
+    else if(i>100 && i<=125)
+    {
+       h = h+2;
+    }
+    else if(i>125 && i<=150)
+    {
+       h = h-2;
+    }
+    else if(i>150 && i<=175)
+    {
+       h = h-2;
+    }
+    else if(i>175 && i<=200)
+    {
+       h = h+2;
+    }
+    else if(i>200 && i<=225)
+    {
+       h = h+2;
+    }
+    else if(i>225 && i<=250)
+    {
+       h = h-2;
+    }
+
+    //console.log("h",h, "X", X)
 
     ctx.fillStyle = "gray";
-
+    //console.log("X",X) 
     ctx.fillRect(X,210,width, h);
     X = X + width+2; //Every time bar will move left by 6px;
     //maximum width is 1400 so bars will cover width of (w<=1400)
 }
-
+ 
 
 ctx.beginPath();
 ctx.rect(200, 70, 3, 100);
@@ -125,8 +166,6 @@ ctx.fillText("Profile", 1200, 115);
 
 
 console.log(songs.duration)
-
-
 let Position = 0;
 
 
@@ -135,28 +174,63 @@ let Position = 0;
 
 
 let duration = songs.duration;
-var X1 = 0;
+var last_pos = -1;
 songs.addEventListener('timeupdate', (event) => {
     //console.log(event.srcElement.currentTime)
     current_time = event.srcElement.currentTime;
 
     Position = Math.floor((current_time*100)/duration);
     //console.log(current_time, duration, Position)
-    console.log(Position)
+    //console.log("Position",Position)
 
     if(Position == 100)
     {
         playIcon.classList.replace("fa-pause","fa-play");   
     }
-
-    var h1 = Math.floor(Math.random()* (max-min) + min);
-    ctx2.fillStyle = "black";
-    ctx2.fillRect(X1,210,width, h1);
-    X1 = X1 + width+2;
-        
+    
+    paint(Position)
   });
 
- 
+
+
+  function paint(Position)
+  {
+
+    console.log("Paint",Position)
+    var X1 = 0;
+    var h1 = 0;
+    for(var l=0; l<233; l++)
+    {
+    ctx.beginPath();
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    if(l<(Position*2.33))
+    {
+        ctx.fillStyle="red";
+    }
+    else
+    {
+        ctx.fillStyle="gray";
+    }
+    ctx.fillRect(X1, 210, width, 70);
+    ctx.fill();
+    
+    X1 = X1 + width+2; 
+    }
+  }
+
 
 
 

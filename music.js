@@ -17,7 +17,7 @@ var min = -100; //minimum height of waveform
 var h = 0  //Height of each vertical bar initially.
 
 
-//Drawing initial pattern
+//Drawing initial pattern 
 ctx.beginPath();  
 for(var i=0; i<=233; i++)
 {
@@ -34,10 +34,15 @@ for(var i=0; i<=233; i++)
 
 
 
-
 let Position = 0; 
 //Position represent current time of audio on scale of 0 to 100
 let duration = songs.duration;
+songs.addEventListener('loadedmetadata', (event) => {
+    duration = event.srcElement.duration;
+ })
+ 
+ console.log(songs.duration)
+
 var last_pos = -1;
 //Listening to event every time when music is playing.
 //To Overwrite the canvas in multiple color.
